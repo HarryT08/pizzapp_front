@@ -16,7 +16,6 @@ const PreparacionProductos = () => {
     preparations,
     listaCostoTamanio,
     setListaCostoTamanio,
-
     listaIngredientesSeleccionados,
     setListaIngredientesSeleccionados,
   } = useContext(ProductContext);
@@ -48,7 +47,6 @@ const PreparacionProductos = () => {
       setListaCostoTamanio(nuevaListaCostoTamanio);
     }
   };
-
 
   const deleteIngrediente = (id) => {
     /*     const newPreparaciones = preparaciones.filter(
@@ -86,41 +84,6 @@ const PreparacionProductos = () => {
           </li>
         ))}
       </ul>
-      <TableIngredientesProductos listaCostoTamanio={listaCostoTamanio} />
-      <Box
-        sx={{
-          mt: "0.5rem",
-        }}
-      >
-        {selectedTab && (
-          <TabContext value={selectedTab}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <TabList
-                onChange={(event, value) => {
-                  setSelectedTab(value);
-                }}
-              >
-                {listaCostoTamanio.map((item) => (
-                  <Tab key={item} label={item} value={item} />
-                ))}
-              </TabList>
-            </Box>
-            {listaCostoTamanio.map((tamanio, index) => (
-              <TabPanel value={tamanio} key={`lista.${tamanio}.${index}`}>
-                {preparaciones
-                  .filter((it) => it.tamanio === selectedTab)
-                  .map((it) => (
-                    <InputIngrediente
-                      key={`${it.id_materia}-${it.tamanio}`}
-                      preparacion={it}
-                      onDelete={deleteIngrediente}
-                    />
-                  ))}
-              </TabPanel>
-            ))}
-          </TabContext>
-        )}
-      </Box>
     </>
   );
 };

@@ -25,9 +25,8 @@ const TabsAgregarProducto = () => {
       <Card sx={{ width: "100%", p: "0.75rem" }}>
         <Tabs value={category} onChange={handleChange}>
           <Tab label="Producto" value="Producto" />
-          <Tab label="Adicion" value="Adicion" />
         </Tabs>
-        {category === "Producto" || category === "Adicion" ? (
+        {category === "Producto" ? (
           <>
             <Box sx={{ my: "1.25rem" }}>
               <Controller

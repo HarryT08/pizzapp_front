@@ -59,7 +59,7 @@ const TableIngredientesProductos = ({ listaCostoTamanio = [] }) => {
     setListaIngredientesSeleccionados((current) => current.concat(ingrediente));
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (preparaciones.length === 0) {
       return;
     }
@@ -83,7 +83,7 @@ const TableIngredientesProductos = ({ listaCostoTamanio = [] }) => {
 
     console.log("Nuevas preparaciones =>", newTamanioPreparaciones);
     console.log("Nuevas preparaciones en objetos =>", nuevasPreparaciones);
-  }, [listaCostoTamanio]);
+  }, [listaCostoTamanio]); */
 
   console.log(preparaciones);
 
@@ -94,56 +94,50 @@ const TableIngredientesProductos = ({ listaCostoTamanio = [] }) => {
         my: "0.5rem",
       }}
     >
-      {ingredientes.length === 0 ? (
-        <Alerta alerta="info" descripcion="No hay ingredientes disponibles." />
-      ) : (
-        <>
-          <Table>
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell key={column.id} align="center">
-                    {column.label}
-                  </TableCell>
-                ))}
+      <Table>
+        <TableHead>
+          <TableRow>
+            {columns.map((column) => (
+              <TableCell key={column.id} align="center">
+                {column.label}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {ingredientes
+            .slice(
+              pageIngredientesProductos * rowsIngredientesProductos,
+              pageIngredientesProductos * rowsIngredientesProductos +
+                rowsIngredientesProductos
+            )
+            .map((ingrediente) => (
+              <TableRow hover key={ingrediente.id}>
+                <TableCell align="center">{ingrediente.nombre}</TableCell>
+                <TableCell align="center">
+                  <Button
+                    type="button"
+                    variant="outlined"
+                    onClick={() => addIngrediente(ingrediente.id)}
+                  >
+                    Agregar
+                  </Button>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {ingredientes
-                .slice(
-                  pageIngredientesProductos * rowsIngredientesProductos,
-                  pageIngredientesProductos * rowsIngredientesProductos +
-                    rowsIngredientesProductos
-                )
-                .map((ingrediente) => (
-                  <TableRow hover key={ingrediente.id}>
-                    <TableCell align="center">{ingrediente.nombre}</TableCell>
-                    <TableCell align="center">
-                      <Button
-                        type="button"
-                        variant="outlined"
-                        onClick={() => addIngrediente(ingrediente.id)}
-                      >
-                        Agregar
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-          <TablePagination
-            component="div"
-            rowsPerPageOptions={[3, 5, 10]}
-            count={ingredientes.length}
-            rowsPerPage={rowsIngredientesProductos}
-            page={pageIngredientesProductos}
-            onPageChange={handleChangePageIngredientesProductos}
-            onRowsPerPageChange={handleChangeRowsPerPageIngredientesProductos}
-            labelRowsPerPage={labelRowsPerPage}
-            labelDisplayedRows={labelDisplayedRows}
-          />
-        </>
-      )}
+            ))}
+        </TableBody>
+      </Table>
+      <TablePagination
+        component="div"
+        rowsPerPageOptions={[3, 5, 10]}
+        count={ingredientes.length}
+        rowsPerPage={rowsIngredientesProductos}
+        page={pageIngredientesProductos}
+        onPageChange={handleChangePageIngredientesProductos}
+        onRowsPerPageChange={handleChangeRowsPerPageIngredientesProductos}
+        labelRowsPerPage={labelRowsPerPage}
+        labelDisplayedRows={labelDisplayedRows}
+      />
     </Box>
   );
 };

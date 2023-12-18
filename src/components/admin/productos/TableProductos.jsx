@@ -101,7 +101,7 @@ const TableProductos = ({ searchProductos }) => {
   const handleEdit = async (producto) => {
     try {
       const objectProductoConPreparaciones =
-        await productosServices.getProductoAndPreparaciones(producto.id);
+      await productosServices.getProductoAndPreparaciones(producto.id);
 
       // Se obtienen los costosProducto del producto (tamanio : precio)
       const costosProducto = formatearObjetoProductoCostos(
@@ -122,20 +122,6 @@ const TableProductos = ({ searchProductos }) => {
 
       navigate("/admin/productos/editar");
 
-      setPreparaciones(objectProductoConPreparaciones.preparaciones);
-
-      const ingredientesSinRepetir = [];
-      objectProductoConPreparaciones.preparaciones.forEach((preparacion) => {
-        if (
-          !ingredientesSinRepetir.find(
-            (ingrediente) => ingrediente.id === preparacion.materiaPrima.id
-          )
-        ) {
-          ingredientesSinRepetir.push(preparacion.materiaPrima);
-        }
-      });
-
-      setListaIngredientesSeleccionados(ingredientesSinRepetir);
       onUpdate("");
     } catch (error) {
       toast.error("No se pudo obtener el producto");

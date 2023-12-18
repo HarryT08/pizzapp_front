@@ -3,19 +3,18 @@ import { normalizeProductos } from "@/utils/productos";
 import {getTokenFromLocalStorage } from '@/utils/getToken'
 
 export async function getProductosAndPreparaciones() {
-  const { data } = await bohemiaApi.get("/productos/productsAndPreparations");
+  const { data } = await bohemiaApi.get("/productos/");
   return normalizeProductos(data);
 }
 
 export async function getProductoAndPreparaciones(idProducto) {
   const response = await bohemiaApi.get(
-    "/productos/productsAndPreparations/" + idProducto
+    "/productos/" + idProducto
   );
-
-  const [data] = response.data;
+  const data = response.data;
   const selectedSizes = [];
+  data.costoProductoTamanio.forEach(({ tamanio }) => {
 
-  data.preparaciones.forEach(({ tamanio }) => {
     if (!selectedSizes.includes(tamanio)) {
       selectedSizes.push(tamanio);
     }

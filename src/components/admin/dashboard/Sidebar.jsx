@@ -25,11 +25,6 @@ const itemsAdmin = [
     title: "Productos",
   },
   {
-    href: "/admin/ingredientes",
-    icon: <IoMdRestaurant fontSize="small" />,
-    title: "Ingredientes",
-  },
-  {
     href: "/admin/bebidas",
     icon: <IoIosCafe fontSize="small" />,
     title: "Bebidas",

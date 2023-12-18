@@ -60,6 +60,8 @@ export const IngredienteProvider = ({ children }) => {
     }
   };
 
+  console.log("ingredientes ->", state.ingredientes);
+
   return (
     <IngredienteContext.Provider
       value={{

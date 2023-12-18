@@ -13,12 +13,10 @@ const TabsProductos = ({ searchProductos }) => {
     <>
       <Tabs value={value} onChange={handleChange}>
         <Tab label="Productos" value="Productos" />
-        <Tab label="Adiciones" value="Adiciones" />
       </Tabs>
       {value === "Productos" && (
         <TableProductos searchProductos={searchProductos} />
       )}
-      {value === "Adiciones" && <p>Tabla adiciones</p>}
     </>
   );
 };

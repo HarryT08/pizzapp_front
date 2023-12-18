@@ -73,9 +73,7 @@ const DashboardAdmin = () => {
               path={AGREGAR_PRODUCTO_ADMIN}
               element={
                 <ProductProvider>
-                  <IngredienteProvider>
-                    <AgregarProductos />
-                  </IngredienteProvider>
+                  <AgregarProductos />
                 </ProductProvider>
               }
             />
@@ -83,18 +81,8 @@ const DashboardAdmin = () => {
               path={EDITAR_PRODUCTO_ADMIN}
               element={
                 <ProductProvider>
-                  <IngredienteProvider>
-                    <AgregarProductos />
-                  </IngredienteProvider>
+                  <AgregarProductos />
                 </ProductProvider>
-              }
-            />
-            <Route
-              path={INGREDIENTES_ADMIN}
-              element={
-                <IngredienteProvider>
-                  <Ingredientes />
-                </IngredienteProvider>
               }
             />
             <Route path={BEBIDAS_ADMIN} element={<Bebidas />} />

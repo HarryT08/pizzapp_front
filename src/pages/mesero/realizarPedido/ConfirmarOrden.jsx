@@ -56,22 +56,22 @@ const ConfirmarOrden = () => {
       observaciones,
     }
     console.log("orden", orden);
-    // try {
-    //   setLoading(true);
-    //   comandasServices.createComandas({
-    //     mesa: id,
-    //     carrito,
-    //     observaciones,
-    //     total,
-    //   });
-    //   toast.success("Orden creada con exito");
-    //   navigate("/mesero/realizar-pedido");
-    //   setCarrito([]);
-    //   setLoading(false);
-    // } catch (error) {
-    //   toast.error("Error al crear la orden");
-    //   console.log(error);
-    // }
+    try {
+      setLoading(true);
+      comandasServices.createComandas({
+        mesa: id,
+        carrito,
+        observaciones,
+        total,
+      });
+      toast.success("Orden creada con exito");
+      navigate("/mesero/realizar-pedido");
+      setCarrito([]);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Error al crear la orden");
+      console.log(error);
+    }
   };
 
   return (

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useCallback } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as productosServices from "@/services/productos/productos";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,10 @@ const initialProduct = {
 
 export const ProductContext = createContext({
   producto: initialProduct,
-  setProducto: () => {}
+  setProducto: () => {},
+  ingredientes: [],
+  preparaciones: [],
+  setPreparaciones: () => {},
 });
 
 const preparations = {
@@ -29,6 +32,9 @@ export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [action, setAction] = useState("create");
   const [producto, setProducto] = useState(initialProduct);
+  const [listaIngredientesSeleccionados, setListaIngredientesSeleccionados] =
+    useState([]);
+  const [preparaciones, setPreparaciones] = useState([]);
   const [listaCostoTamanio, setListaCostoTamanio] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -48,13 +54,46 @@ export const ProductProvider = ({ children }) => {
     getProductos();
   }, []);
 
-  useEffect(() => {}, [listaCostoTamanio]);
+  useEffect(() => {
+    const nuevasPreparaciones = listaCostoTamanio.map((tamanio) => {
+      const nuevasPreparacionesConIngredientes =
+        listaIngredientesSeleccionados.map((ingrediente) => {
+          const cantidad =
+            preparaciones.find(
+              (preparacion) =>
+                preparacion.id_materia === ingrediente.id &&
+                preparacion.tamanio === tamanio
+            )?.cantidad || 1;
+
+          return {
+            id_materia: ingrediente.id || "",
+            id_producto: producto.id || "",
+            tamanio,
+            cantidad,
+            materiaPrima: ingrediente,
+          };
+        });
+      return [...nuevasPreparacionesConIngredientes];
+    });
+
+    setPreparaciones(nuevasPreparaciones.flat(1));
+  }, [listaCostoTamanio, listaIngredientesSeleccionados]);
+
+  useEffect(() => {
+    if (listaCostoTamanio.length === 0) {
+      setListaIngredientesSeleccionados([]);
+      setPreparaciones([]);
+    }
+    if (listaCostoTamanio.length === 1 && listaCostoTamanio[0] === "unico") {
+      setPreparaciones([]);
+      setListaIngredientesSeleccionados([]);
+    }
+  }, [listaCostoTamanio]);
 
   const getProductos = async () => {
     setLoading(true);
     try {
       const { data } = await productosServices.getProducts();
-      console.log(data);
       setProducts(data);
       setLoading(false);
     } catch (error) {
@@ -72,18 +111,21 @@ export const ProductProvider = ({ children }) => {
         nombre: valoresProducto.nombre,
         costos: {
           ...valoresProducto.costos,
-        }
+        },
+        preparaciones: preparaciones,
       };
 
       if (action === "create") {
+        console.log("Data create ->", data)
         await productosServices.createProduct(data);
         console.log("Data create ->", data);
       } else if (action === "update") {
         console.log("Data update ->", data);
-         await productosServices.updateProduct(data);
+        await productosServices.updateProduct(data);
       }
 
       toast.success("Producto agregado correctamente");
+      setPreparaciones([]);
       setTimeout(() => {
         getProductos();
         navigate("/admin/productos");
@@ -97,22 +139,27 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-
   const value = {
     products,
     producto,
     setProducto,
+    preparaciones,
+    setPreparaciones,
     handleCreate,
     onUpdate: handleUpdate,
     onSubmit: handleSubmit,
     loading,
     getProductos,
     action,
+    preparations,
     methodsProducts,
     category,
     setCategory,
     listaCostoTamanio,
-    setListaCostoTamanio
+    setListaCostoTamanio,
+    setListaIngredientesSeleccionados,
+
+    listaIngredientesSeleccionados,
   };
 
   return (
