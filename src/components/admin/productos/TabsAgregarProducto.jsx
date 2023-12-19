@@ -13,20 +13,24 @@ import { Controller } from "react-hook-form";
 import { Alerta } from "@/components";
 
 const TabsAgregarProducto = () => {
-  const { methodsProducts, category, setCategory, listaCostoTamanio } =
-    useContext(ProductContext);
+  const {
+    methodsProducts,
+    listaCostoTamanio,
+    categoryBebida,
+    setCategoryBebida,
+  } = useContext(ProductContext);
 
   const handleChange = (event, newValue) => {
-    setCategory(newValue);
+    setCategoryBebida(newValue);
   };
 
   return (
     <>
       <Card sx={{ width: "100%", p: "0.75rem" }}>
-        <Tabs value={category} onChange={handleChange}>
-          <Tab label="Producto" value="Producto" />
+        <Tabs value={categoryBebida} onChange={handleChange}>
+          <Tab label="Bebida" value="Bebida" />
         </Tabs>
-        {category === "Producto" ? (
+        {categoryBebida === "Bebida" ? (
           <>
             <Box sx={{ my: "1.25rem" }}>
               <Controller

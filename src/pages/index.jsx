@@ -7,7 +7,10 @@ export { default as Productos } from "./admin/productos/Productos";
 export { default as AgregarProductos } from "./admin/productos/AgregarProductos";
 
 export { default as Ingredientes } from "./admin/ingredientes/Ingredientes";
+
+export { default as AgregarBebidas } from "./admin/bebidas/AgregarBebidas";
 export { default as Bebidas } from "./admin/bebidas/Bebidas";
+
 export { default as Ordenes } from "./admin/ordenes/Ordenes";
 export { default as Cuentas } from "./admin/cuentas/Cuentas";
 export { default as Mesas } from "./admin/mesas/Mesas";
@@ -19,6 +22,6 @@ export { default as DashboardMesero } from "./mesero/dashboard/DashboardMesero";
 
 export { default as RealizarPedido } from "./mesero/realizarPedido/RealizarPedido";
 export { default as TomarOrden } from "./mesero/realizarPedido/TomarOrden";
-export {default as ConfirmarOrden} from "./mesero/realizarPedido/ConfirmarOrden"
+export { default as ConfirmarOrden } from "./mesero/realizarPedido/ConfirmarOrden";
 
 export { default as EditarPedido } from "./mesero/editarPedido/EditarPedido";

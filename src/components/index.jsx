@@ -3,6 +3,8 @@ export { default as Loader } from "./Loader";
 export { default as Alerta } from "./Alerta";
 export { default as Header } from "./Header";
 
+export {default as TableBebidas} from "./admin/bebidas/TableBebidas";
+
 export { default as DashboarLayout } from "./admin/dashboard/DashboardLayout";
 export { default as Navbar } from "./admin/dashboard/Navbar";
 export { default as Sidebar } from "./admin/dashboard/Sidebar";

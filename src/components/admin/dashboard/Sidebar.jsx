@@ -57,11 +57,6 @@ const itemsMesero = [
     icon: <BsFillPersonCheckFill fontSize="small" />,
     title: "Realizar pedido",
   },
-  {
-    href: "/mesero/editar-pedido",
-    icon: <BsFillPersonDashFill fontSize="small" />,
-    title: "Editar pedido",
-  },
 ];
 
 const Sidebar = ({ onClose, open }) => {

@@ -5,8 +5,8 @@ import {
   Inicio,
   Productos,
   AgregarProductos,
-  Ingredientes,
   Bebidas,
+  AgregarBebidas,
   Ordenes,
   Cuentas,
   Mesas,
@@ -18,8 +18,9 @@ import {
   INICIO_ADMIN,
   PRODUCTOS_ADMIN,
   AGREGAR_PRODUCTO_ADMIN,
-  INGREDIENTES_ADMIN,
   BEBIDAS_ADMIN,
+  EDITAR_BEBIDA_ADMIN,
+  AGREGAR_BEBIDA_ADMIN,
   ORDENES_ADMIN,
   CUENTAS_ADMIN,
   MESAS_ADMIN,
@@ -27,8 +28,6 @@ import {
   FACTURA_ADMIN,
   EDITAR_PRODUCTO_ADMIN,
 } from "@/routes/paths";
-
-import { IngredienteProvider } from "@/context/ingredientes/IngredientesContext";
 import { OrdenesProvider } from "@/context/ordenes/OrdenesContext";
 import { ProductProvider } from "@/context/productos/ProductContext";
 import { CuentasProvider } from "@/context/cuentas/CuentasContext";
@@ -85,7 +84,30 @@ const DashboardAdmin = () => {
                 </ProductProvider>
               }
             />
-            <Route path={BEBIDAS_ADMIN} element={<Bebidas />} />
+            <Route
+              path={EDITAR_BEBIDA_ADMIN}
+              element={
+                <ProductProvider>
+                  <AgregarBebidas />
+                </ProductProvider>
+              }
+            />
+            <Route
+              path={AGREGAR_BEBIDA_ADMIN}
+              element={
+                <ProductProvider>
+                  <AgregarBebidas />
+                </ProductProvider>
+              }
+            />
+            <Route
+              path={BEBIDAS_ADMIN}
+              element={
+                <ProductProvider>
+                  <Bebidas />
+                </ProductProvider>
+              }
+            />
             <Route
               path={ORDENES_ADMIN}
               element={

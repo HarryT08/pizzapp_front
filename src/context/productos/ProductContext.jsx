@@ -29,6 +29,7 @@ const preparations = {
 export const ProductProvider = ({ children }) => {
   const methodsProducts = useForm();
   const [category, setCategory] = useState("Producto");
+  const [categoryBebida, setCategoryBebida] = useState("Bebida");
   const [products, setProducts] = useState([]);
   const [action, setAction] = useState("create");
   const [producto, setProducto] = useState(initialProduct);
@@ -37,6 +38,7 @@ export const ProductProvider = ({ children }) => {
   const [preparaciones, setPreparaciones] = useState([]);
   const [listaCostoTamanio, setListaCostoTamanio] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isBebida, setIsBedida] = useState(false);
   const navigate = useNavigate();
 
   const handleCreate = () => {
@@ -103,7 +105,6 @@ export const ProductProvider = ({ children }) => {
   };
 
   const handleSubmit = async (valoresProducto) => {
-    console.log("Valores producto:", valoresProducto);
     try {
       setLoading(true);
       const data = {
@@ -113,22 +114,25 @@ export const ProductProvider = ({ children }) => {
           ...valoresProducto.costos,
         },
         preparaciones: preparaciones,
+        esBebida: isBebida,
       };
 
       if (action === "create") {
-        console.log("Data create ->", data)
         await productosServices.createProduct(data);
-        console.log("Data create ->", data);
+        toast.success(`${isBebida ? "Bebida" : "Producto"} creado`);
       } else if (action === "update") {
-        console.log("Data update ->", data);
         await productosServices.updateProduct(data);
+        toast.success(`${isBebida ? "Bebida" : "Producto"} actualizado`);
       }
 
-      toast.success("Producto agregado correctamente");
       setPreparaciones([]);
       setTimeout(() => {
         getProductos();
-        navigate("/admin/productos");
+        if (isBebida) {
+          navigate("/admin/bebidas");
+        } else {
+          navigate("/admin/productos");
+        }
       }, 1500);
       setLoading(false);
     } catch (err) {
@@ -155,10 +159,12 @@ export const ProductProvider = ({ children }) => {
     methodsProducts,
     category,
     setCategory,
+    categoryBebida,
+    setCategoryBebida,
     listaCostoTamanio,
     setListaCostoTamanio,
     setListaIngredientesSeleccionados,
-
+    setIsBedida,
     listaIngredientesSeleccionados,
   };
 
