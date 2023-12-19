@@ -53,7 +53,6 @@ const Factura = () => {
       await bohemiaApi.put(`/comanda/${id}`, {
         estado: "Facturado",
       });
-      updateMesa();
       setTimeout(() => {
         navigate("/admin/facturar");
         setLoading(false);
@@ -68,7 +67,6 @@ const Factura = () => {
     getComanda();
   }, []);
 
-  console.log("Comanda ->", comanda);
   return (
     <>
       <Box bgcolor="#E7EDF5" width="100%" p={3}>

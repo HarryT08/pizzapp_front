@@ -54,7 +54,7 @@ const ConfirmarOrden = () => {
       mesa: id,
       data: carrito,
       observaciones,
-    }
+    };
     console.log("orden", orden);
     try {
       setLoading(true);
@@ -65,7 +65,9 @@ const ConfirmarOrden = () => {
         total,
       });
       toast.success("Orden creada con exito");
-      navigate("/mesero/realizar-pedido");
+      setTimeout(() => {
+        navigate("/mesero/realizar-pedido");
+      }, 1000);
       setCarrito([]);
       setLoading(false);
     } catch (error) {
