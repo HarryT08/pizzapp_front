@@ -1,5 +1,6 @@
+import { RouterProvider } from "react-router-dom";
+import { router } from "@/presentation/routes";
+
 export const App = () => {
-  return (
-    <div className='text-xl underline'>App</div>
-  )
-}
+  return <RouterProvider router={router} />;
+};
