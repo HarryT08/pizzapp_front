@@ -1,5 +1,5 @@
 export type LoginDTO = { username: string; password: string };
-export type LoginResultDTO = {
+export type LoginResponse = {
   user: {
     cedula: number;
     username: string;

@@ -1,25 +1,35 @@
+import axios from "axios";
+
 export const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
-// token en memoria (rápido para demo). Si prefieres localStorage, combínalo.
 let _token: string | null = null;
 export const setToken = (t: string | null) => (_token = t);
 export const getToken = () => _token;
 
-export async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const headers: Record<string, string> = {
+const apiClient = axios.create({
+  baseURL: API_URL,
+  headers: {
     "Content-Type": "application/json",
-    ...(init?.headers as Record<string, string> | undefined),
-  };
-  if (_token) headers.Authorization = `Bearer ${_token}`;
+  },
+});
 
-  const res = await fetch(`${API_URL}${path}`, { ...init, headers });
-  if (!res.ok) {
-    const text = await res.text().catch(() => "Request failed");
-    throw new Error(text || `HTTP ${res.status}`);
+// Interceptor para agregar token automáticamente
+apiClient.interceptors.request.use((config) => {
+  if (_token) {
+    config.headers.Authorization = `Bearer ${_token}`;
   }
-  
-  // si el endpoint no devuelve JSON (204), evita parsear
-  const contentType = res.headers.get("content-type") ?? "";
-  if (!contentType.includes("application/json")) return {} as T;
-  return res.json() as Promise<T>;
+  return config;
+});
+
+// Wrapper de API
+export async function api<T>(path: string, options?: any): Promise<T> {
+  try {
+    const res = await apiClient.request<T>({
+      url: path,
+      ...options,
+    });
+    return res.data;
+  } catch (err: any) {
+    throw new Error(err.response?.data?.message || err.message);
+  }
 }

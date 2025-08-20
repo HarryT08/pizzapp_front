@@ -1,20 +1,11 @@
 import { AuthService } from "../../ports/AuthService";
 import { Result, ok, err } from "../../common/Result";
+import { LoginDTO, LoginResponse } from "@/application/dto";
 
 export class Login {
   constructor(private auth: AuthService) {}
 
-  async exec(input: {
-    username: string;
-    password: string;
-  }): Promise<
-    Result<{
-      token: string;
-      user: AuthService["login"] extends (...a: any) => Promise<infer R>
-        ? R["user"]
-        : never;
-    }>
-  > {
+  async exec(input: LoginDTO): Promise<Result<LoginResponse>> {
     try {
       const { token, user } = await this.auth.login(input);
       return ok({ token, user });
